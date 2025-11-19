@@ -5,17 +5,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct No{
+typedef struct AVLNo {
     char palavra[50];
     int linha_i, col_i;
     int linha_f, col_f;
-    struct No *esquerdo, *direito;
+    struct AVLNo *esquerdo, *direito;
     int altura;
-};
+} AVLNo;
 
-No* inserir(int capacidade);
-No* remover(int capacidade);
-void imprimir(Heap* h, int n);
-void liberarAVL(Heap *h);
+AVLNo* inserirAVL(AVLNo* no, char *p, int li, int ci, int lf, int cf);
+AVLNo* removerAVL(AVLNo* raiz, char *p);
+void listarAVL(AVLNo* raiz);
+void liberarAVL(AVLNo *raiz);
 
 #endif

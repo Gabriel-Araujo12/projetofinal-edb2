@@ -1,6 +1,6 @@
 #include "avl.h"
 
-int obterAltura(No* no){
+int obterAltura(AVLNo* no){
     if(no == NULL){
         return 0;
     }
@@ -8,8 +8,8 @@ int obterAltura(No* no){
     return no->altura;
 }
 
-No* criarNo(char *p, int li, int ci, int lf, int cf){
-    No* no = (No*)malloc(sizeof(No));
+AVLNo* criarNo(char *p, int li, int ci, int lf, int cf){
+    AVLNo* no = (AVLNo*)malloc(sizeof(AVLNo));
 
     strcpy(n->palavra, p);
     no->linha_i = li; 
@@ -28,7 +28,7 @@ int max(int a, int b){
     return (a > b) ? a : b; 
 }
 
-int obterFatorBalanceamento(No* no){
+int obterFatorBalanceamento(AVLNo* no){
     if(no == NULL){
         return 0;
     }
@@ -36,9 +36,9 @@ int obterFatorBalanceamento(No* no){
     return obterAltura(no->esquerdo) - obterAltura(no->direito);
 }
 
-No* rotacaoDireita(No* no){
-    No* filhoEsquerdo = no->esquerdo;
-    No* temp = filhoEsquerdo->direito;
+AVLNo* rotacaoDireita(AVLNo* no){
+    AVLNo* filhoEsquerdo = no->esquerdo;
+    AVLNo* temp = filhoEsquerdo->direito;
 
     filhoEsquerdo->direito = no;
     no->esquerdo = temp;
@@ -49,9 +49,9 @@ No* rotacaoDireita(No* no){
     return filhoEsquerdo;
 }
 
-No* rotacaoEsquerda(No* no){
-    No* filhoDireito = no->direito;
-    No* temp = filhoDireito->esquerdo;
+AVLNo* rotacaoEsquerda(AVLNo* no){
+    AVLNo* filhoDireito = no->direito;
+    AVLNo* temp = filhoDireito->esquerdo;
 
     filhoDireito->esquerdo = no;
     no->direito = temp;
@@ -62,19 +62,19 @@ No* rotacaoEsquerda(No* no){
     return filhoDireito;
 }
 
-No* rotacaoDuplaEsquerdaDireita(No* no){
+AVLNo* rotacaoDuplaEsquerdaDireita(AVLNo* no){
     no->esquerdo = rotacaoEsquerda(no->esquerdo);
     return rotacaoDireita(no);
 }
 
-No* rotacaoDuplaDireitaEsquerda(No* no){
+AVLNo* rotacaoDuplaDireitaEsquerda(AVLNo* no){
     no->direito = rotacaoDireita(no->direito);
     return rotacaoEsquerda(no);
 }
 
-No* inserir(No* no, char *p, int li, int ci, int lf, int cf){
+AVLNo* inserirAVL(AVLNo* no, char *p, int li, int ci, int lf, int cf){
     if(no == NULL){
-        return criarNo(p, li, ci, lf, cf);
+        return criarAVL(p, li, ci, lf, cf);
     }
 
     int cmp = strcmp(p, r->palavra);
@@ -108,7 +108,7 @@ No* inserir(No* no, char *p, int li, int ci, int lf, int cf){
     return no;
 }
 
-No* min_no(No *raiz){
+AVLNo* min_no(AVLNo *raiz){
     while(raiz->esquerdo != NULL){
         raiz = raiz->esquerdo;
     }
@@ -116,7 +116,7 @@ No* min_no(No *raiz){
     return raiz;
 }
 
-No* remover(No* raiz, char *p){
+AVLNo* removerAVL(AVLNo* raiz, char *p){
     if(raiz == NULL){
         return raiz;
     }
@@ -131,7 +131,7 @@ No* remover(No* raiz, char *p){
     }
     else{
         if((raiz->esquerdo == NULL) || (raiz->direito == NULL)){
-            No *temp = raiz->esquerdo ? raiz->esquerdo : raiz->direito;
+            AVLNo *temp = raiz->esquerdo ? raiz->esquerdo : raiz->direito;
 
             if(temp == NULL){
                 temp = raiz;
@@ -144,7 +144,7 @@ No* remover(No* raiz, char *p){
             free(temp);
         }
         else{
-            No* temp = min_no(raiz->direito);
+            AVLNo* temp = min_no(raiz->direito);
 
             strcpy(raiz->palavra, temp->palavra);
             raiz->linha_i = temp->linha_i;
@@ -179,7 +179,7 @@ No* remover(No* raiz, char *p){
     return raiz;
 }
 
-void listarEmOrdem(No* raiz){
+void listarAVL(AVLNo* raiz){
     if(raiz != NULL){
         listarEmOrdem(raiz->esquerdo);
         printf("%s (%d,%d) -> (%d,%d)\n", r->palavra, r->linha_i, r->col_i, r->linha_f, r->col_f);
@@ -187,7 +187,7 @@ void listarEmOrdem(No* raiz){
     }
 }
 
-void liberar(AVLNo *raiz){
+void liberarAVL(AVLNo* raiz){
     liberar(raiz->esq);
     liberar(raiz->dir);
     free(raiz);
