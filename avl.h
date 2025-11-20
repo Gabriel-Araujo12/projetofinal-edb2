@@ -16,6 +16,6 @@ typedef struct AVLNo {
 AVLNo* inserirAVL(AVLNo* no, char *p, int li, int ci, int lf, int cf);
 AVLNo* removerAVL(AVLNo* raiz, char *p);
 void listarAVL(AVLNo* raiz);
-void liberarAVL(AVLNo *raiz);
+void liberarAVL(AVLNo* raiz);
 
 #endif

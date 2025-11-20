@@ -10,7 +10,7 @@ static char **tab;
 void ler_tabuleiro(const char *arq){
     FILE *arquivo = fopen(arq, "r");
     if(!arquivo){
-        printf("ERRO: Não foi possível abrir o arquivo.");
+        printf("\nERRO: Não foi possível abrir o arquivo.\n\n");
 
         return;
     }
@@ -32,14 +32,14 @@ void ler_tabuleiro(const char *arq){
 void ler_palavras(const char *arq, TrieNo *no){
     FILE *arquivo = fopen(arq, "r");
     if(!arquivo){
-        printf("ERRO: Não foi possível abrir o arquivo.");
+        printf("\nERRO: Não foi possível abrir o arquivo.\n\n");
 
         return;
     }
 
     char palavra[50];
     while(fscanf(arquivo, "%s", palavra) != EOF){
-        trie_inserir(trie, palavra);
+        inserirTrie(no, palavra);
     }
 
     fclose(arquivo);
@@ -59,8 +59,8 @@ static void buscar_direcoes(TrieNo *trie, AVLNo **avl, int x, int y){
             palavra[k++] = tab[i][j];
             palavra[k] = '\0';
 
-            if(trie_buscar(trie, palavra)){
-                *avl = avl_inserir(*avl, palavra, x, y, i, j);
+            if(buscarTrie(trie, palavra)){
+                *avl = inserirAVL(*avl, palavra, x, y, i, j);
             }
 
             i += dx[d];
@@ -83,10 +83,11 @@ AVLNo* buscar_palavras(TrieNo *trie){
 
 void imprimir_resultados(AVLNo *raiz){
     if(raiz == NULL){
-        printf("---> Nenhuma palavra encontrada.\n");
+        printf("\n---> Nenhuma palavra encontrada.\n\n");
         return;
     }
 
     printf("\n========== PALAVRAS ENCONTRADAS ==========\n");
-    avl_imprimir(raiz);
+    listarAVL(raiz);
+    printf("==========================================\n\n");
 }

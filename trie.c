@@ -1,6 +1,6 @@
 #include "trie.h"
 
-TrieNo* criarNo(){
+TrieNo* criarNoTrie(){
     TrieNo* no = (TrieNo*) malloc(sizeof(TrieNo));
     
     if(!no){
@@ -31,7 +31,7 @@ void inserirTrie(TrieNo* raiz, const char* p){
         }
 
         if(!atual->filho[indice]){
-            atual->filho[indice] = criarNo();
+            atual->filho[indice] = criarNoTrie();
         }
 
         atual = atual->filho[indice];
@@ -48,6 +48,7 @@ int buscarTrie(TrieNo* raiz, const char* p){
             return 0;
         }
 
+        char c = toupper(p[i]);
         int indice = c - 'A';
 
         if(indice < 0 || indice >= 26){

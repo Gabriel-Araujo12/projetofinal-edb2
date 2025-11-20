@@ -13,7 +13,7 @@ typedef struct TrieNo {
     int fim;
 } TrieNo;
 
-TrieNo* criarNo();
+TrieNo* criarNoTrie();
 void inserirTrie(TrieNo* raiz, const char* p);
 int buscarTrie(TrieNo* raiz, const char* p);
 void liberarTrie(TrieNo* raiz);
